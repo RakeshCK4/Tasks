@@ -1,0 +1,67 @@
+<html>
+<head>
+<title>Quiz</title>
+<script>
+var questions =["Q1. Who came up with the theory of relativity?","Q2. Who is on the two dollar bill?","Q3. What event began on April 12, 1861?"];
+var options=["Sir Isaac Newton,Nicolaus Copernicus,Albert Einstein,Ralph Waldo Emmerson","Thomas Jefferson,Dwight D. Eisenhower,Benjamin Franklin,Abraham Lincoln"
+,"First manned flight,California became a state,American Civil War began,Declaration of Independence"];
+var answers=["Albert Einstein","Thomas Jefferson","American Civil War began"];
+var index = parseInt(0);
+var count = parseInt(0);
+
+function displayQuestion(){
+		var inputs = options[index].split(",");
+		var quiz ="<h4>"+questions[index]+"</h4>"+
+		"<input  type='radio' value='"+inputs[0]+"' name='q'>"+inputs[0]+"<br/>"+
+		"<input  type='radio' value='"+inputs[1]+"' name='q'>"+inputs[1]+"<br/>"+
+		"<input  type='radio' value='"+inputs[2]+"' name='q'>"+inputs[2]+"<br/>"+
+		"<input  type='radio' value='"+inputs[3]+"' name='q'>"+inputs[3]+"<br/>";
+		document.getElementById("question").innerHTML= quiz;
+		document.getElementById("checkanswer").style.display="block";
+		document.getElementById("next").style.display="none";
+		document.getElementById("result").innerHTML =null;
+		document.getElementById("result").style.color=null;
+}
+
+function checkAnswer(){
+	var selectedValue=document.querySelector('input[name="q"]:checked').value;
+	if(index < questions.length){
+		document.getElementById("checkanswer").style.display="none";
+		document.getElementById("next").style.display="block";
+		if(selectedValue !=null && selectedValue == answers[index]){
+			document.getElementById("result").innerHTML = "The answer is correct!";
+			document.getElementById("result").style.color="green";
+			count++;
+		}
+		else{
+			document.getElementById("result").innerHTML = "The answer is incorrect!";
+			document.getElementById("result").style.color="red";
+		}
+	}
+	else{
+	document.getElementById("checkanswer").style.display="none";
+	document.getElementById("next").style.display="none";
+	}
+}
+
+function nextQuestion(){
+	if(index < questions.length-1){
+		index++;
+		displayQuestion();
+	}
+	else {
+		document.getElementById("result").innerHTML = "You have answered "+count+" out of "+questions.length+"correctly!";
+		document.getElementById("result").style.color="blue";
+		document.getElementById("next").style.display="none";
+	}
+}
+
+</script>
+</head>
+<body onload="displayQuestion()">
+<div id ="question"></div>
+<div id="result"></div>
+<button id="checkanswer" onclick="checkAnswer()">Check answer!</button>
+<button id="next" onclick="nextQuestion()" style="display:none">Next &gt;</button>
+</body>
+<html>
